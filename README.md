@@ -32,7 +32,7 @@ Then open http://localhost:4192.
 | What | Where |
 |---|---|
 | Phone number | `1-866-744-6870` is temporary until the main number is approved. Change `PHONE` and `PHONE_TEL` in `_src/build.py`, plus the `tel:` links in `_src/pages/` (contact, privacy, terms), then rebuild. |
-| Form inbox | The form `action` in `_src/pages/contact.html` and in `careers_page()` in `_src/build.py`. Both point to a temporary test Gmail. |
+| Form inbox | Both forms send to dsphubops@dsphubsolutions.net. To change it, edit `FORM_ACTION` at the top of `_src/build.py` and rebuild. |
 | Legal pages | `_src/pages/privacy.html` and `terms.html` are general templates. Have them reviewed before launch. |
 
 ### Contact form

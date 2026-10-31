@@ -24,6 +24,8 @@ DOMAIN = "https://dsphubops.com/"
 # GitHub serves 404.html at every depth, so it needs absolute links. Set this
 # to "/" once dsphubops.com points at GitHub Pages.
 BASE_404 = "/dsphubops.com/"
+# Both forms email submissions to this inbox through FormSubmit (see README).
+FORM_ACTION = "https://formsubmit.co/dsphubops@dsphubsolutions.net"
 PHONE = "1-866-744-6870"
 PHONE_TEL = "+18667446870"
 UPDATED = "October 31, 2026"
@@ -194,7 +196,7 @@ def footer(root):
 
 def render(page):
     root = root_for(page["path"])
-    main = page["main"].replace("{{root}}", root)
+    main = page["main"].replace("{{root}}", root).replace("{{form_action}}", FORM_ACTION)
     main_class = ' class="%s"' % page["main_class"] if page.get("main_class") else ""
     doc = "\n".join([
         head(page, root),
@@ -574,7 +576,7 @@ def careers_page():
             <h2>Apply</h2>
             <p class="lead">Tell us a little about yourself. We’ll reply by email and ask for your resume if there’s a fit.</p>
           </div>
-          <form id="careers-form" class="form" action="https://formsubmit.co/hharsh.mehta@gmail.com" method="POST" data-formsubmit data-status="careers-status" data-done-title="Thanks for applying." data-done-text="We read every application and will reply by email if there’s a fit.">
+          <form id="careers-form" class="form" action="%(form_action)s" method="POST" data-formsubmit data-status="careers-status" data-done-title="Thanks for applying." data-done-text="We read every application and will reply by email if there’s a fit.">
             <input type="hidden" name="_subject" value="Careers application from dsphubops.com">
             <input type="hidden" name="_template" value="table">
             <input type="hidden" name="_next" value="https://dsphubops.com/contact/thanks/">
@@ -612,7 +614,7 @@ def careers_page():
         </aside>
       </div>
     </section>
-""" % {"roles": roles, "options": options, "tel": PHONE_TEL, "phone": PHONE}
+""" % {"roles": roles, "options": options, "tel": PHONE_TEL, "phone": PHONE, "form_action": FORM_ACTION}
     return {"path": "careers/", "title": "Careers | DSP Hub Ops",
             "description": "Join the DSP Hub Ops team. We hire operations, recruiting, payroll, dispatch and fleet compliance specialists in the United States.",
             "nav": "about", "main": main}
