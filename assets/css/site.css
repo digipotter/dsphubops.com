@@ -1,10 +1,13 @@
 /* DSP Hub Ops — site styles. The default palette is logo option C (pine and brass).
    Colours are set by role so another palette can replace them; see "Colour options" at the end. */
 
-:root, [data-theme="current"] {
+:root {
   --primary: #10362F;         /* pine: headings, buttons, links */
   --primary-hover: #1A4A40;
   --heading: #10362F;
+  --button: #10362F;          /* filled buttons */
+  --button-hover: #1A4A40;
+  --button-text: #FFFFFF;
   --deep: #10362F;            /* dark bands: top bar, hero, call to action, footer */
   --deep-rgb: 16, 54, 47;
   --secondary: #5B8F86;       /* sea sage: icons, ticks, card rules */
@@ -113,8 +116,8 @@ p { margin: 0; }
   cursor: pointer;
   transition: background-color 0.15s, color 0.15s;
 }
-.btn--primary { background: var(--primary); color: var(--white); }
-.btn--primary:hover { background: var(--primary-hover); border-color: var(--primary-hover); color: var(--white); }
+.btn--primary { background: var(--button); border-color: var(--button); color: var(--button-text); }
+.btn--primary:hover { background: var(--button-hover); border-color: var(--button-hover); color: var(--button-text); }
 .btn--secondary { background: transparent; color: var(--primary); }
 .btn--secondary:hover { background: var(--primary); color: var(--white); }
 .btn--light { background: var(--tint); border-color: var(--tint); color: var(--primary); }
@@ -567,6 +570,7 @@ fieldset.field { border: 0; padding: 0; margin: 0; }
    one element (the cards on /colors/) and not only to the whole page. */
 [data-theme="signal"] {
   --primary: #12493D; --primary-hover: #1A5C4D; --heading: #12493D;
+  --button: #12493D; --button-hover: #1A5C4D; --button-text: #FFFFFF;
   --deep: #0E3A31; --deep-rgb: 14, 58, 49;
   --secondary: #23876A; --secondary-text: #1E7A5F;
   --accent: #F26A2E; --accent-text: #D9541A;
@@ -575,6 +579,7 @@ fieldset.field { border: 0; padding: 0; margin: 0; }
 }
 [data-theme="harbor"] {
   --primary: #16315A; --primary-hover: #21437A; --heading: #16315A;
+  --button: #16315A; --button-hover: #21437A; --button-text: #FFFFFF;
   --deep: #0F2340; --deep-rgb: 15, 35, 64;
   --secondary: #3C6DB4; --secondary-text: #2F5FA6;
   --accent: #F2A93B; --accent-text: #C27C12;
@@ -583,6 +588,7 @@ fieldset.field { border: 0; padding: 0; margin: 0; }
 }
 [data-theme="cobalt"] {
   --primary: #1C4ED8; --primary-hover: #1A41B5; --heading: #0C1B3F;
+  --button: #1C4ED8; --button-hover: #1A41B5; --button-text: #FFFFFF;
   --deep: #0C1B3F; --deep-rgb: 12, 27, 63;
   --secondary: #4F7DF0; --secondary-text: #2A5BD7;
   --accent: #FF6B4A; --accent-text: #E5512F;
@@ -591,56 +597,43 @@ fieldset.field { border: 0; padding: 0; margin: 0; }
 }
 [data-theme="plum"] {
   --primary: #45215A; --primary-hover: #5A2D74; --heading: #45215A;
+  --button: #45215A; --button-hover: #5A2D74; --button-text: #FFFFFF;
   --deep: #2A1636; --deep-rgb: 42, 22, 54;
   --secondary: #8E5BB0; --secondary-text: #7A4A9C;
   --accent: #D8A23C; --accent-text: #A87716;
   --soft: #DDCCEA; --tint: #F6F1FA; --on-dark: #EADFF2;
   --text: #22182A; --muted: #5A4C66; --line: #E3D9EA; --field-line: #BFAFCC; --footer-line: #4A2E5E;
 }
-/* Fleet colours: the approved pine and brass, plus one colour per part of the business. */
-[data-theme="fleet"] {
-  --primary: #10362F; --primary-hover: #1A4A40; --heading: #10362F;
-  --deep: #10362F; --deep-rgb: 16, 54, 47;
-  --secondary: #5B8F86; --secondary-text: #5B8F86;
-  --accent: #B39463; --accent-text: #B39463;
-  --soft: #B7CFC9; --tint: #F1F4F3; --on-dark: #D9E6E2;
-  --text: #1D2B27; --muted: #4A5C58; --line: #D6DEDB; --field-line: #AEBDB8; --footer-line: #2B5148;
-  --c-blue: #2563C9; --c-orange: #C2410C; --c-green: #237F54; --c-gold: #9A6408;
-  --c-red: #C03838; --c-violet: #6D4FCC; --c-teal: #1F7FA8;
+[data-theme="gold"] {
+  --primary: #3A3324; --primary-hover: #4E4532; --heading: #26221A;
+  --button: #E2A912; --button-hover: #CC9608; --button-text: #1F1B12;
+  --deep: #26221A; --deep-rgb: 38, 34, 26;
+  --secondary: #B98A10; --secondary-text: #8A6508;
+  --accent: #E2A912; --accent-text: #A57A08;
+  --soft: #F0DFA8; --tint: #F8F5EC; --on-dark: #EDE6D3;
+  --text: #22201B; --muted: #57524A; --line: #E4DED0; --field-line: #BDB4A0; --footer-line: #3E382C;
 }
-[data-theme="fleet"] .capability { box-shadow: inset 0 4px 0 var(--c); }
-[data-theme="fleet"] .capability svg { color: var(--c); }
-[data-theme="fleet"] .capability:nth-child(1) { --c: var(--c-blue); }
-[data-theme="fleet"] .capability:nth-child(2) { --c: var(--c-orange); }
-[data-theme="fleet"] .capability:nth-child(3) { --c: var(--c-green); }
-[data-theme="fleet"] .capability:nth-child(4) { --c: var(--c-gold); }
-[data-theme="fleet"] .segment:nth-child(1) { border-top-color: var(--c-orange); }
-[data-theme="fleet"] .segment:nth-child(2) { border-top-color: var(--c-blue); }
-[data-theme="fleet"] .segment:nth-child(3) { border-top-color: var(--c-violet); }
-[data-theme="fleet"] .card-grid > .card:has(.card-num) { border-top: 4px solid var(--c); }
-[data-theme="fleet"] .card-grid > .card .card-num, [data-theme="fleet"] .service .card-num { color: var(--c); }
-[data-theme="fleet"] .card-grid > .card:nth-child(1), [data-theme="fleet"] .service:nth-of-type(1) { --c: var(--c-green); }
-[data-theme="fleet"] .card-grid > .card:nth-child(2), [data-theme="fleet"] .service:nth-of-type(2) { --c: var(--c-gold); }
-[data-theme="fleet"] .card-grid > .card:nth-child(3), [data-theme="fleet"] .service:nth-of-type(3) { --c: var(--c-violet); }
-[data-theme="fleet"] .card-grid > .card:nth-child(4), [data-theme="fleet"] .service:nth-of-type(4) { --c: var(--c-blue); }
-[data-theme="fleet"] .card-grid > .card:nth-child(5), [data-theme="fleet"] .service:nth-of-type(5) { --c: var(--c-red); }
-[data-theme="fleet"] .card-grid > .card:nth-child(6), [data-theme="fleet"] .service:nth-of-type(6) { --c: var(--c-orange); }
-[data-theme="fleet"] .card-grid > .card:nth-child(7), [data-theme="fleet"] .service:nth-of-type(7) { --c: var(--c-teal); }
-[data-theme="fleet"] .step:nth-child(3n+1) .step-num { color: var(--c-blue); }
-[data-theme="fleet"] .step:nth-child(3n+2) .step-num { color: var(--c-orange); }
-[data-theme="fleet"] .step:nth-child(3n) .step-num { color: var(--c-green); }
-[data-theme="fleet"] .values .card { border-left: 4px solid var(--c-blue); }
-[data-theme="fleet"] .values .card:nth-child(2) { border-left-color: var(--c-orange); }
-[data-theme="fleet"] .values .card:nth-child(3) { border-left-color: var(--c-green); }
-[data-theme="fleet"] .values .card:nth-child(4) { border-left-color: var(--c-violet); }
-[data-theme="fleet"] .res-card { border-top: 4px solid var(--c); }
-[data-theme="fleet"] .res-card .res-cat { color: var(--c); }
-[data-theme="fleet"] [data-cat="finance"] { --c: var(--c-gold); }
-[data-theme="fleet"] [data-cat="operations"] { --c: var(--c-blue); }
-[data-theme="fleet"] [data-cat="people"] { --c: var(--c-green); }
-[data-theme="fleet"] [data-cat="fleet"] { --c: var(--c-orange); }
-[data-theme="fleet"] [data-cat="safety"] { --c: var(--c-red); }
-[data-theme="fleet"] [data-cat="compliance"] { --c: var(--c-violet); }
+[data-theme="burgundy"] {
+  --primary: #6B1E32; --primary-hover: #82263E; --heading: #6B1E32;
+  --button: #6B1E32; --button-hover: #82263E; --button-text: #FFFFFF;
+  --deep: #3A0F1B; --deep-rgb: 58, 15, 27;
+  --secondary: #A34A5E; --secondary-text: #8E3A4E;
+  --accent: #D9895B; --accent-text: #B5653A;
+  --soft: #EBC9D2; --tint: #FAF2F4; --on-dark: #F2DDE2;
+  --text: #2A1A1E; --muted: #5E4A50; --line: #EADADF; --field-line: #C7AEB5; --footer-line: #5A2234;
+}
+[data-theme="turquoise"] {
+  --primary: #0B7480; --primary-hover: #0A5F69; --heading: #0A4A55;
+  --button: #0B7480; --button-hover: #0A5F69; --button-text: #FFFFFF;
+  --deep: #0A4A55; --deep-rgb: 10, 74, 85;
+  --secondary: #0F948F; --secondary-text: #0A7A80;
+  --accent: #FF7A66; --accent-text: #DB4F3B;
+  --soft: #B9EAE6; --tint: #EEF8F8; --on-dark: #D9F1EF;
+  --text: #142B2D; --muted: #44605F; --line: #D3E4E3; --field-line: #A5C4C2; --footer-line: #1F6470;
+}
+/* On dark bands the yellow option uses yellow buttons instead of pale ones. */
+[data-theme="gold"] .btn--light { background: var(--button); border-color: var(--button); color: var(--button-text); }
+[data-theme="gold"] .btn--light:hover { background: var(--button-hover); border-color: var(--button-hover); }
 
 /* Preview switcher, shown only while a colour option is being previewed */
 .has-theme-bar body { padding-bottom: 84px; }
@@ -677,8 +670,6 @@ fieldset.field { border: 0; padding: 0; margin: 0; }
 .sw-secondary { background: var(--secondary); }
 .sw-accent { background: var(--accent); }
 .sw-tint { background: var(--tint); }
-.swatches--fleet { display: none; }
-[data-theme="fleet"] .swatches--fleet { display: flex; }
 .demo-card { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; padding: 16px; border: 1px solid var(--line); border-top: 4px solid var(--secondary); border-radius: var(--radius); }
 .demo-card .step-num { grid-row: span 2; font-size: 2rem; }
 .demo-card h3 { font-size: 1.05rem; }

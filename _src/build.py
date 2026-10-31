@@ -48,14 +48,15 @@ MARK = ('<svg viewBox="0 0 64 64" aria-hidden="true"><g class="mk-line" stroke-w
         '<polygon points="32,60 28,36 32,32"/><polygon points="4,32 28,28 32,32"/></g>'
         '<circle class="mk-hub" cx="32" cy="32" r="5" stroke-width="2"/></svg>')
 # Colour options the owners are comparing. Visitors only see one when a link
-# carries ?theme=<slug>; the slugs and labels are repeated in site.js.
+# carries ?theme=<slug>; the slugs, with one-word names, also appear in site.js.
 THEMES = [
-    ("current", "Pine and brass", "The approved palette: deep pine green with brass highlights."),
-    ("signal", "Green and orange", "Keeps the green, brightens it, and adds high-visibility orange."),
+    ("signal", "Green and orange", "Keeps a green, brightens it, and adds high-visibility orange."),
+    ("gold", "Dark yellow and charcoal", "Bold dark yellow with warm charcoal. Strong and easy to spot."),
+    ("burgundy", "Burgundy and copper", "Deep burgundy with copper highlights. Established and premium."),
+    ("turquoise", "Turquoise and coral", "Fresh turquoise and deep teal with coral highlights."),
     ("harbor", "Navy and amber", "Classic logistics navy with warm amber highlights."),
     ("cobalt", "Blue and coral", "A brighter, more modern blue with coral highlights."),
     ("plum", "Plum and gold", "A deep plum that stands apart from blue and green competitors."),
-    ("fleet", "Multi-color", "Keeps the pine and brass, and gives each part of the business its own color."),
 ]
 # Runs before the page paints so a previewed palette never flashes green first.
 THEME_BOOT = ('<script>try{var t=new URLSearchParams(location.search).get("theme");'
@@ -276,12 +277,12 @@ def faq_items(pairs):
 
 
 def article_card(a, cls="res-card"):
-    return """          <a class="%s" data-cat="%s" href="{{root}}resources/%s/">
+    return """          <a class="%s" href="{{root}}resources/%s/">
             <span class="res-cat">%s</span>
             <h3>%s</h3>
             <p>%s</p>
             <span class="res-meta">%s minute read</span>
-          </a>""" % (cls, a["category"].lower(), a["slug"], esc(a["category"]), esc(a["title"]), esc(a["dek"]),
+          </a>""" % (cls, a["slug"], esc(a["category"]), esc(a["title"]), esc(a["dek"]),
                      a["minutes"])
 
 
@@ -766,7 +767,6 @@ def colors_page():
               <h2>%(name)s</h2>
               <p>%(note)s</p>
               <div class="swatches" aria-hidden="true"><span class="sw-deep"></span><span class="sw-primary"></span><span class="sw-secondary"></span><span class="sw-accent"></span><span class="sw-tint"></span></div>
-              <div class="swatches swatches--fleet" aria-hidden="true"><span style="background:var(--c-blue)"></span><span style="background:var(--c-orange)"></span><span style="background:var(--c-green)"></span><span style="background:var(--c-gold)"></span><span style="background:var(--c-red)"></span><span style="background:var(--c-violet)"></span></div>
               <div class="demo-card"><span class="step-num">1</span><h3>Dispatch and routes</h3><p>Eyes on every route until the last van is home.</p></div>
               <a class="btn btn--primary" href="{{root}}?theme=%(slug)s">See the site in these colors</a>
             </div>
@@ -774,7 +774,7 @@ def colors_page():
     main = """    <section class="page-head">
       <div class="container">
         <h1>Color options</h1>
-        <p class="lead">The same website and logo in six color palettes. Tap one to browse the whole site in it, then use the bar at the bottom of the screen to switch between options.</p>
+        <p class="lead">The same website and logo in seven color palettes. Tap one to browse the whole site in it, then use the bar at the bottom of the screen to switch between options.</p>
       </div>
     </section>
 

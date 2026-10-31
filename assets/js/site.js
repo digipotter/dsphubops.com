@@ -80,12 +80,13 @@ document.documentElement.classList.add('js');
   // palette is on, links keep it and a small switcher sits at the bottom.
   // Visitors who arrive without ?theme never see any of this.
   var THEMES = [
-    ['current', 'Pine and brass'],
-    ['signal', 'Green and orange'],
-    ['harbor', 'Navy and amber'],
-    ['cobalt', 'Blue and coral'],
-    ['plum', 'Plum and gold'],
-    ['fleet', 'Multi-color']
+    ['signal', 'Green'],
+    ['gold', 'Dark yellow'],
+    ['burgundy', 'Burgundy'],
+    ['turquoise', 'Turquoise'],
+    ['harbor', 'Navy'],
+    ['cobalt', 'Blue'],
+    ['plum', 'Plum']
   ];
   var theme = document.documentElement.getAttribute('data-theme');
   var slugs = THEMES.map(function (t) { return t[0]; });
