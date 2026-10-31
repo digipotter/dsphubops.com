@@ -21,9 +21,8 @@ sys.path.insert(0, HERE)
 import content  # noqa: E402
 
 DOMAIN = "https://dsphubops.com/"
-# GitHub serves 404.html at every depth, so it needs absolute links. Set this
-# to "/" once dsphubops.com points at GitHub Pages.
-BASE_404 = "/dsphubops.com/"
+# GitHub serves 404.html at every depth, so it needs absolute links.
+BASE_404 = "/"
 # Both forms are Formspree forms defined in _src/formspree.json, which also sets
 # the inbox they email (see README). The project ID is in the Formspree project settings.
 FORMSPREE_PROJECT = "3124978871309434377"

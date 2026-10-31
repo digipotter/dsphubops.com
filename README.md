@@ -48,15 +48,14 @@ Keep the deploy key out of the repository. The site finds each form at `https://
 
 ## Deploy on GitHub Pages
 
-The repository is `digipotter/dsphubops.com`, published from the `main` branch, root folder. All links are relative, so the site works on the temporary `digipotter.github.io/dsphubops.com/` address and on the real domain.
+The repository is `digipotter/dsphubops.com`, published from the `main` branch, root folder, at **https://dsphubops.com**. The `CNAME` file holds the custom domain; the old `digipotter.github.io/dsphubops.com/` address redirects there.
 
-To move to dsphubops.com:
+DNS lives at GoDaddy (dsphubops.com, DNS tab):
 
-1. At the domain registrar, add:
-   - `A` records for `dsphubops.com` pointing to `185.199.108.153`, `185.199.109.153`, `185.199.110.153` and `185.199.111.153`
-   - a `CNAME` record for `www` pointing to `digipotter.github.io`
-2. Add a file named `CNAME` at the repository root containing `dsphubops.com`, or type the domain under Settings > Pages > Custom domain.
-3. Tick "Enforce HTTPS" once the certificate is issued.
+- four `A` records for `@`: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+- `CNAME` for `www` pointing to `digipotter.github.io`
+
+Leave the other GoDaddy records (name servers, `_domainconnect`, `_dmarc`) as they are.
 
 ## Photos
 
