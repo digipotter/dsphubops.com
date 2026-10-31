@@ -162,8 +162,9 @@ p { margin: 0; }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(100deg, rgba(16, 54, 47, 0.95) 0%, rgba(16, 54, 47, 0.84) 40%, rgba(16, 54, 47, 0.36) 72%, rgba(16, 54, 47, 0.18) 100%);
+  background: linear-gradient(100deg, rgba(16, 54, 47, 0.82) 0%, rgba(16, 54, 47, 0.64) 36%, rgba(16, 54, 47, 0.24) 66%, rgba(16, 54, 47, 0.06) 100%);
 }
+.hslide .display, .hslide .lead, .hslide .hero-label { text-shadow: 0 1px 3px rgba(8, 28, 24, 0.35); }
 .hslide .container { position: relative; z-index: 1; display: grid; gap: 22px; justify-items: start; padding-top: 48px; padding-bottom: 150px; }
 .hero-label { font-family: var(--font-head); font-weight: 600; font-size: 1rem; color: var(--mist); display: inline-flex; align-items: center; gap: 10px; margin: 0; }
 .hero-label::before { content: ""; width: 28px; height: 2px; background: var(--brass); }
@@ -216,7 +217,7 @@ p { margin: 0; }
 }
 
 @media (max-width: 720px) {
-  .hslide::after { background: linear-gradient(180deg, rgba(16, 54, 47, 0.72) 0%, rgba(16, 54, 47, 0.93) 100%); }
+  .hslide::after { background: linear-gradient(180deg, rgba(16, 54, 47, 0.58) 0%, rgba(16, 54, 47, 0.82) 100%); }
   .hero-slider { min-height: 680px; }
   .hslide .container { padding-bottom: 120px; }
   .hero-controls { bottom: 64px; }
