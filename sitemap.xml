@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://dsphubops.com/</loc></url>
-  <url><loc>https://dsphubops.com/services/</loc></url>
-  <url><loc>https://dsphubops.com/about/</loc></url>
-  <url><loc>https://dsphubops.com/contact/</loc></url>
+  <url><loc>https://dsphubops.com/about/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/contact/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/privacy/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/services/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/terms/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/services/hiring/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/services/payroll/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/services/invoice-audit/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/services/dispatch/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/services/driver-safety/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/services/fleet-compliance/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/services/unemployment-claims/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/who-we-serve/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/who-we-serve/amazon-dsp/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/who-we-serve/courier-fleets/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/who-we-serve/regional-carriers/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/faq/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/careers/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/resources/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/resources/audit-weekly-dsp-invoice/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/resources/payroll-mistakes-delivery-fleets/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/resources/end-of-day-dispatch-report/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/resources/peak-season-hiring-pipeline/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/resources/reduce-driver-turnover/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/resources/preventive-maintenance-delivery-vans/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/resources/dvic-inspections-that-stick/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/resources/coaching-with-camera-events/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/resources/respond-to-unemployment-claims/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://dsphubops.com/resources/audit-ready-records/</loc><lastmod>2026-10-31</lastmod></url>
 </urlset>

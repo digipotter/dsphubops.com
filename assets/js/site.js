@@ -75,23 +75,27 @@ document.documentElement.classList.add('js');
     revealed.forEach(function (el) { el.classList.add('visible'); });
   }
 
-  // The form posts to FormSubmit. Without JavaScript it falls back to a normal
+  // Forms post to FormSubmit. Without JavaScript they fall back to a normal
   // POST and FormSubmit redirects to /contact/thanks/. With JavaScript we use
   // FormSubmit's AJAX endpoint and show the result in place.
-  var form = document.getElementById('pricing-form');
-  if (!form) return;
-  var status = document.getElementById('form-status');
-
-  form.addEventListener('submit', function (event) {
-    event.preventDefault();
+  document.querySelectorAll('form[data-formsubmit]').forEach(function (form) {
+    var status = document.getElementById(form.dataset.status);
     var button = form.querySelector('button[type="submit"]');
+    var label = button.textContent;
+    form.addEventListener('submit', function (event) { send(event, form, status, button, label); });
+  });
+
+  function send(event, form, status, button, label) {
+    event.preventDefault();
     button.disabled = true;
     button.textContent = 'Sending…';
 
     var data = new FormData(form);
-    var services = data.getAll('services');
-    data.delete('services');
-    data.set('services', services.length ? services.join(', ') : 'Not specified');
+    if (form.querySelector('[name="services"]')) {
+      var services = data.getAll('services');
+      data.delete('services');
+      data.set('services', services.length ? services.join(', ') : 'Not specified');
+    }
 
     var endpoint = form.action.replace('formsubmit.co/', 'formsubmit.co/ajax/');
     fetch(endpoint, {
@@ -107,17 +111,19 @@ document.documentElement.classList.add('js');
         if (body.success === false || body.success === 'false') throw new Error(body.message || 'Rejected');
         form.hidden = true;
         status.className = 'form-status form-status--ok';
-        status.innerHTML = '<h2>Thanks, we have your request.</h2><p>We will reply by email with pricing for the services you picked.</p>';
+        status.innerHTML = '<h2></h2><p></p>';
+        status.querySelector('h2').textContent = form.dataset.doneTitle;
+        status.querySelector('p').textContent = form.dataset.doneText;
         status.hidden = false;
         status.focus();
       })
       .catch(function (error) {
-        console.error('Pricing form failed:', error);
+        console.error('Form failed:', error);
         status.className = 'form-status form-status--error';
         status.textContent = 'We couldn’t send that. Please try again in a minute.';
         status.hidden = false;
         button.disabled = false;
-        button.textContent = 'Send request';
+        button.textContent = label;
       });
-  });
+  }
 })();

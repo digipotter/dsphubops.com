@@ -1,0 +1,97 @@
+<!--
+path: contact/
+title: Get pricing | DSP Hub Ops
+description: Tell us about your delivery operation and the services you need, and we will reply with pricing.
+og_title: Get pricing | DSP Hub Ops
+nav: contact
+-->
+    <section class="page-head">
+      <div class="container">
+        <h1>Get pricing</h1>
+        <p class="lead">Pricing depends on the services you need and the size of your operation. Send a few details and we’ll reply with a quote.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container contact-grid">
+        <div>
+          <!-- Submissions go to FormSubmit, which emails them on. Swap the address in the action below when the company inbox is ready. -->
+          <form id="pricing-form" class="form" action="https://formsubmit.co/hharsh.mehta@gmail.com" method="POST" data-formsubmit data-status="form-status" data-done-title="Thanks, we have your request." data-done-text="We will reply by email with pricing for the services you picked.">
+            <input type="hidden" name="_subject" value="New pricing request from dsphubops.com">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" value="https://dsphubops.com/contact/thanks/">
+            <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <div class="form-row">
+              <div class="field">
+                <label for="f-name">Your name</label>
+                <input id="f-name" name="name" type="text" autocomplete="name" required>
+              </div>
+              <div class="field">
+                <label for="f-company">Company or DSP name</label>
+                <input id="f-company" name="company" type="text" autocomplete="organization" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="field">
+                <label for="f-email">Email</label>
+                <input id="f-email" name="email" type="email" autocomplete="email" required>
+              </div>
+              <div class="field">
+                <label for="f-phone">Phone <span class="hint">(optional)</span></label>
+                <input id="f-phone" name="phone" type="tel" autocomplete="tel">
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="f-routes">Routes per day</label>
+              <select id="f-routes" name="routes">
+                <option value="Not given">Choose one</option>
+                <option>Fewer than 20</option>
+                <option>20 to 40</option>
+                <option>41 to 60</option>
+                <option>More than 60</option>
+                <option>Not sure</option>
+              </select>
+            </div>
+
+            <fieldset class="field">
+              <legend>Services you’re interested in</legend>
+              <div class="checks">
+                <label><input type="checkbox" name="services" value="Hiring and onboarding"> Hiring and onboarding</label>
+                <label><input type="checkbox" name="services" value="Payroll and bookkeeping"> Payroll and bookkeeping</label>
+                <label><input type="checkbox" name="services" value="Invoice audit and recovery"> Invoice audit and recovery</label>
+                <label><input type="checkbox" name="services" value="Dispatch and station support"> Dispatch and station support</label>
+                <label><input type="checkbox" name="services" value="Driver performance and safety"> Driver performance and safety</label>
+                <label><input type="checkbox" name="services" value="Fleet and compliance"> Fleet and compliance</label>
+                <label><input type="checkbox" name="services" value="Unemployment claims"> Unemployment claims</label>
+                <label><input type="checkbox" name="services" value="Not sure yet"> Not sure yet</label>
+              </div>
+            </fieldset>
+
+            <div class="field">
+              <label for="f-message">Anything else we should know? <span class="hint">(optional)</span></label>
+              <textarea id="f-message" name="message"></textarea>
+            </div>
+
+            <div class="btn-row"><button class="btn btn--primary" type="submit">Send request</button></div>
+            <p class="form-note">We use these details only to reply to your request.</p>
+          </form>
+          <div id="form-status" class="form-status" role="status" tabindex="-1" hidden></div>
+        </div>
+
+        <aside class="contact-aside" aria-label="Contact details">
+          <div class="facts-box">
+            <h2>Contact details</h2>
+            <dl>
+              <dt>Phone</dt><dd><a href="tel:+18667446870">1-866-744-6870</a></dd>
+              <dt>Address</dt><dd>12108 Parker Hill Dr<br>Bakersfield, CA 93311</dd>
+              <dt>Team</dt><dd>Based in the United States</dd>
+            </dl>
+          </div>
+          <p class="form-note">Prefer a call? Leave your phone number in the form and we’ll ring you.</p>
+        </aside>
+      </div>
+    </section>
+  
