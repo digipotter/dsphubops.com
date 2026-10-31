@@ -38,14 +38,29 @@ NAV = [
     ("contact/", "Contact", "contact"),
 ]
 
-MARK = ('<svg viewBox="0 0 64 64" aria-hidden="true"><g stroke="#B39463" stroke-width="1.3">'
+# Logo colours come from the stylesheet (.mk-*), so they follow the palette.
+MARK = ('<svg viewBox="0 0 64 64" aria-hidden="true"><g class="mk-line" stroke-width="1.3">'
         '<line x1="32" y1="32" x2="47" y2="17"/><line x1="32" y1="32" x2="47" y2="47"/>'
         '<line x1="32" y1="32" x2="17" y2="47"/><line x1="32" y1="32" x2="17" y2="17"/></g>'
-        '<g fill="{dark}"><polygon points="32,4 28,28 32,32"/><polygon points="60,32 36,28 32,32"/>'
+        '<g class="mk-a"><polygon points="32,4 28,28 32,32"/><polygon points="60,32 36,28 32,32"/>'
         '<polygon points="32,60 36,36 32,32"/><polygon points="4,32 28,36 32,32"/></g>'
-        '<g fill="{light}"><polygon points="32,4 36,28 32,32"/><polygon points="60,32 36,36 32,32"/>'
+        '<g class="mk-b"><polygon points="32,4 36,28 32,32"/><polygon points="60,32 36,36 32,32"/>'
         '<polygon points="32,60 28,36 32,32"/><polygon points="4,32 28,28 32,32"/></g>'
-        '<circle cx="32" cy="32" r="5" fill="#B39463" stroke="{ring}" stroke-width="2"/></svg>')
+        '<circle class="mk-hub" cx="32" cy="32" r="5" stroke-width="2"/></svg>')
+# Colour options the owners are comparing. Visitors only see one when a link
+# carries ?theme=<slug>; the slugs and labels are repeated in site.js.
+THEMES = [
+    ("current", "Pine and brass", "The approved palette: deep pine green with brass highlights."),
+    ("signal", "Green and orange", "Keeps the green, brightens it, and adds high-visibility orange."),
+    ("harbor", "Navy and amber", "Classic logistics navy with warm amber highlights."),
+    ("cobalt", "Blue and coral", "A brighter, more modern blue with coral highlights."),
+    ("plum", "Plum and gold", "A deep plum that stands apart from blue and green competitors."),
+    ("fleet", "Multi-color", "Keeps the pine and brass, and gives each part of the business its own color."),
+]
+# Runs before the page paints so a previewed palette never flashes green first.
+THEME_BOOT = ('<script>try{var t=new URLSearchParams(location.search).get("theme");'
+              'if(t===null)t=sessionStorage.getItem("dsp-theme");else sessionStorage.setItem("dsp-theme",t);'
+              'if(t&&/^[a-z]+$/.test(t))document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>')
 WORDMARK = ('<span class="wordmark"><span class="w">DSP</span><span class="dot"></span>'
             '<span class="w">HUB</span><span class="dot"></span><span>OPS</span></span>')
 
@@ -91,6 +106,7 @@ def head(page, root):
         '  <link rel="preconnect" href="https://fonts.googleapis.com">',
         '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
         '  <link rel="stylesheet" href="%s">' % FONTS,
+        "  " + THEME_BOOT,
         '  <link rel="stylesheet" href="%sassets/css/site.css">' % root,
         '  <script src="%sassets/js/site.js" defer></script>' % root,
     ]
@@ -133,7 +149,7 @@ def header(root, page):
         <a class="btn btn--primary" href="%scontact/">Get pricing</a>
       </nav>
     </div>
-  </header>""" % (root or "./", MARK.format(dark="#10362F", light="#5B8F86", ring="#FFFFFF"), WORDMARK,
+  </header>""" % (root or "./", MARK, WORDMARK,
                   "\n".join(links), root)
 
 
@@ -189,7 +205,7 @@ def footer(root):
   </footer>""" % {
         "home": root or "./", "root": root, "tel": PHONE_TEL, "phone": PHONE,
         "addr0": ADDRESS[0], "addr1": ADDRESS[1], "services": services, "segments": segments,
-        "mark": MARK.format(dark="#F1F4F3", light="#B7CFC9", ring="#10362F"), "wordmark": WORDMARK,
+        "mark": MARK, "wordmark": WORDMARK,
     }
 
 
@@ -260,12 +276,13 @@ def faq_items(pairs):
 
 
 def article_card(a, cls="res-card"):
-    return """          <a class="%s" href="{{root}}resources/%s/">
+    return """          <a class="%s" data-cat="%s" href="{{root}}resources/%s/">
             <span class="res-cat">%s</span>
             <h3>%s</h3>
             <p>%s</p>
             <span class="res-meta">%s minute read</span>
-          </a>""" % (cls, a["slug"], esc(a["category"]), esc(a["title"]), esc(a["dek"]), a["minutes"])
+          </a>""" % (cls, a["category"].lower(), a["slug"], esc(a["category"]), esc(a["title"]), esc(a["dek"]),
+                     a["minutes"])
 
 
 # Generated pages -----------------------------------------------------------
@@ -735,6 +752,45 @@ def resources_hub(articles):
             "nav": "resources", "main": main}
 
 
+def colors_page():
+    cards = []
+    for slug, name, note in THEMES:
+        cards.append("""          <article class="palette" data-theme="%(slug)s">
+            <div class="palette-demo">
+              <span class="logo">%(mark)s %(wordmark)s</span>
+              <p class="hero-label">Last-mile logistics operations</p>
+              <p class="palette-head">Every route. Every driver. Every dollar.</p>
+              <span class="btn btn--light">Get pricing</span>
+            </div>
+            <div class="palette-body">
+              <h2>%(name)s</h2>
+              <p>%(note)s</p>
+              <div class="swatches" aria-hidden="true"><span class="sw-deep"></span><span class="sw-primary"></span><span class="sw-secondary"></span><span class="sw-accent"></span><span class="sw-tint"></span></div>
+              <div class="swatches swatches--fleet" aria-hidden="true"><span style="background:var(--c-blue)"></span><span style="background:var(--c-orange)"></span><span style="background:var(--c-green)"></span><span style="background:var(--c-gold)"></span><span style="background:var(--c-red)"></span><span style="background:var(--c-violet)"></span></div>
+              <div class="demo-card"><span class="step-num">1</span><h3>Dispatch and routes</h3><p>Eyes on every route until the last van is home.</p></div>
+              <a class="btn btn--primary" href="{{root}}?theme=%(slug)s">See the site in these colors</a>
+            </div>
+          </article>""" % {"slug": slug, "name": esc(name), "note": esc(note), "mark": MARK, "wordmark": WORDMARK})
+    main = """    <section class="page-head">
+      <div class="container">
+        <h1>Color options</h1>
+        <p class="lead">The same website and logo in six color palettes. Tap one to browse the whole site in it, then use the bar at the bottom of the screen to switch between options.</p>
+      </div>
+    </section>
+
+    <section class="section section--flush">
+      <div class="container">
+        <div class="palette-grid">
+%s
+        </div>
+      </div>
+    </section>
+""" % "\n".join(cards)
+    return {"path": "colors/", "title": "Color options | DSP Hub Ops",
+            "description": "Color palette options for the DSP Hub Ops website.",
+            "robots": "noindex", "nav": "", "main": main}
+
+
 # Build -------------------------------------------------------------------
 
 def main():
@@ -763,6 +819,7 @@ def main():
     pages.append(careers_page())
     pages.append(resources_hub(articles))
     pages += [article_page(a, articles) for a in articles]
+    pages.append(colors_page())
 
     for page in pages:
         render(page)

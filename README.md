@@ -27,6 +27,12 @@ python3 -m http.server 4192
 
 Then open http://localhost:4192.
 
+## Color options
+
+The owners are comparing palettes. `/colors/` (not linked from the site, hidden from search engines) shows each option, and any page opened with `?theme=<name>` shows the whole site in that palette with a switcher at the bottom. Options: `current`, `signal`, `harbor`, `cobalt`, `plum`, `fleet`. Palettes live at the end of `assets/css/site.css`; the list also appears in `THEMES` in `_src/build.py` and in `assets/js/site.js`.
+
+Once a palette is chosen, copy its values into the `:root` block at the top of `site.css`, then remove the colour options section, the `/colors/` page and the switcher.
+
 ## Things to change before launch
 
 | What | Where |

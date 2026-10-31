@@ -1,4 +1,4 @@
-// DSP Hub Ops: mobile menu, hero slider, scroll reveals and contact form.
+// DSP Hub Ops: mobile menu, hero slider, scroll reveals, colour preview and forms.
 
 document.documentElement.classList.add('js');
 
@@ -73,6 +73,73 @@ document.documentElement.classList.add('js');
     revealed.forEach(function (el) { observer.observe(el); });
   } else {
     revealed.forEach(function (el) { el.classList.add('visible'); });
+  }
+
+  // Colour preview. A link with ?theme=<slug> shows the site in another
+  // palette (the script in <head> applies it before the page paints). While a
+  // palette is on, links keep it and a small switcher sits at the bottom.
+  // Visitors who arrive without ?theme never see any of this.
+  var THEMES = [
+    ['current', 'Pine and brass'],
+    ['signal', 'Green and orange'],
+    ['harbor', 'Navy and amber'],
+    ['cobalt', 'Blue and coral'],
+    ['plum', 'Plum and gold'],
+    ['fleet', 'Multi-color']
+  ];
+  var theme = document.documentElement.getAttribute('data-theme');
+  var slugs = THEMES.map(function (t) { return t[0]; });
+  if (theme && slugs.indexOf(theme) !== -1) showThemeBar(theme);
+
+  function showThemeBar(active) {
+    var go = function (slug) {
+      var url = new URL(location.href);
+      if (slug) {
+        url.searchParams.set('theme', slug);
+      } else {
+        url.searchParams.delete('theme');
+        try { sessionStorage.removeItem('dsp-theme'); } catch (e) { /* storage blocked */ }
+      }
+      location.href = url.toString();
+    };
+    var step = function (by) {
+      go(slugs[(slugs.indexOf(active) + by + slugs.length) % slugs.length]);
+    };
+
+    document.querySelectorAll('a[href]').forEach(function (a) {
+      if (a.getAttribute('href').charAt(0) === '#') return;
+      var url = new URL(a.href, location.href);
+      if (url.origin !== location.origin) return;
+      url.searchParams.set('theme', active);
+      a.href = url.toString();
+    });
+
+    // The colours page sits at the site root, wherever the site is hosted.
+    var css = document.querySelector('link[href$="assets/css/site.css"]');
+    var colorsPage = css.href.replace(/assets\/css\/site\.css$/, 'colors/') + '?theme=' + active;
+    var arrow = function (d) {
+      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + d + '"/></svg>';
+    };
+    var bar = document.createElement('div');
+    bar.className = 'theme-bar';
+    bar.setAttribute('role', 'region');
+    bar.setAttribute('aria-label', 'Color options');
+    bar.innerHTML =
+      '<span class="theme-bar-label">Color option</span>' +
+      '<button type="button" data-step="-1" aria-label="Previous color option">' + arrow('M15 5l-7 7 7 7') + '</button>' +
+      '<select aria-label="Color option">' + THEMES.map(function (t) {
+        return '<option value="' + t[0] + '"' + (t[0] === active ? ' selected' : '') + '>' + t[1] + '</option>';
+      }).join('') + '</select>' +
+      '<button type="button" data-step="1" aria-label="Next color option">' + arrow('M9 5l7 7-7 7') + '</button>' +
+      '<a href="' + colorsPage + '" aria-label="Compare all color options">' + arrow('M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z') + '</a>' +
+      '<button type="button" data-exit aria-label="Close color preview">' + arrow('M6 6l12 12M18 6L6 18') + '</button>';
+    bar.querySelector('select').addEventListener('change', function (event) { go(event.target.value); });
+    bar.querySelectorAll('[data-step]').forEach(function (button) {
+      button.addEventListener('click', function () { step(Number(button.getAttribute('data-step'))); });
+    });
+    bar.querySelector('[data-exit]').addEventListener('click', function () { go(null); });
+    document.body.appendChild(bar);
+    document.documentElement.classList.add('has-theme-bar');
   }
 
   // Forms post to FormSubmit. Without JavaScript they fall back to a normal
