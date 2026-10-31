@@ -1,28 +1,28 @@
-/* DSP Hub Ops — site styles. The default palette is logo option C (pine and brass).
-   Colours are set by role so another palette can replace them; see "Colour options" at the end. */
+/* DSP Hub Ops — site styles. Palette: blue and coral, chosen by the owners.
+   Colours are set by role, so the palette lives in this one block. */
 
 :root {
-  --primary: #10362F;         /* pine: headings, buttons, links */
-  --primary-hover: #1A4A40;
-  --heading: #10362F;
-  --button: #10362F;          /* filled buttons */
-  --button-hover: #1A4A40;
+  --primary: #1C4ED8;         /* cobalt: buttons, links, icons in the logo */
+  --primary-hover: #1A41B5;
+  --heading: #0C1B3F;         /* ink navy: headings */
+  --button: #1C4ED8;          /* filled buttons */
+  --button-hover: #1A41B5;
   --button-text: #FFFFFF;
-  --deep: #10362F;            /* dark bands: top bar, hero, call to action, footer */
-  --deep-rgb: 16, 54, 47;
-  --secondary: #5B8F86;       /* sea sage: icons, ticks, card rules */
-  --secondary-text: #5B8F86;
-  --accent: #B39463;          /* brass: hub ring, underlines, highlights */
-  --accent-text: #B39463;
-  --soft: #B7CFC9;            /* mist: text on dark bands */
-  --tint: #F1F4F3;            /* porcelain: light sections */
-  --on-dark: #D9E6E2;
+  --deep: #0C1B3F;            /* dark bands: top bar, hero, call to action, footer */
+  --deep-rgb: 12, 27, 63;
+  --secondary: #4F7DF0;       /* light cobalt: icons, ticks, card rules */
+  --secondary-text: #2A5BD7;
+  --accent: #FF6B4A;          /* coral: hub ring, underlines, highlights */
+  --accent-text: #E5512F;
+  --soft: #C8D5F7;            /* text on dark bands */
+  --tint: #F1F5FE;            /* light sections */
+  --on-dark: #DCE4FA;
   --white: #FFFFFF;
-  --text: #1D2B27;
-  --muted: #4A5C58;
-  --line: #D6DEDB;
-  --field-line: #AEBDB8;
-  --footer-line: #2B5148;
+  --text: #141B2E;
+  --muted: #4B5470;
+  --line: #D8DFF0;
+  --field-line: #A8B5D6;
+  --footer-line: #263A6E;
 
   --font-head: 'Public Sans', Arial, sans-serif;
   --font-body: 'Atkinson Hyperlegible Next', Arial, sans-serif;
@@ -66,8 +66,8 @@ p { margin: 0; }
 .section--tint { background: var(--tint); }
 .section--flush { padding-top: clamp(32px, 5vw, 56px); }
 .narrow { max-width: 720px; display: grid; gap: 20px; justify-items: start; }
-.section--pine { background: var(--deep); color: var(--tint); }
-.section--pine h2 { color: var(--white); }
+.section--dark { background: var(--deep); color: var(--tint); }
+.section--dark h2 { color: var(--white); }
 
 .lead { font-size: clamp(1.1rem, 1.6vw, 1.25rem); color: var(--muted); max-width: 40em; }
 .section-head { display: grid; gap: 14px; max-width: 46rem; margin-bottom: 40px; }
@@ -170,7 +170,7 @@ p { margin: 0; }
 .topbar a { color: var(--tint); text-decoration: none; }
 .topbar a:hover { color: var(--white); text-decoration: underline; }
 .topbar-info { display: flex; flex-wrap: wrap; gap: 6px 22px; }
-@media (max-width: 620px) { .topbar-cta { display: none; } }
+@media (max-width: 620px) { .topbar-info span { display: none; } }
 
 /* Hero slider: full-bleed photos with a pine scrim. The first slide works without JavaScript. */
 .hero-slider { position: relative; overflow: hidden; background: var(--deep); color: var(--white); min-height: clamp(580px, 82vh, 720px); }
@@ -564,114 +564,3 @@ fieldset.field { border: 0; padding: 0; margin: 0; }
   .res-card--feature { grid-template-columns: 1fr; }
   .res-card--feature p, .res-card--feature .res-cat, .res-card--feature h3 { grid-column: 1; grid-row: auto; }
 }
-
-/* Colour options ------------------------------------------------------------
-   Each palette sets every colour token itself, so it also works when applied to
-   one element (the cards on /colors/) and not only to the whole page. */
-[data-theme="signal"] {
-  --primary: #12493D; --primary-hover: #1A5C4D; --heading: #12493D;
-  --button: #12493D; --button-hover: #1A5C4D; --button-text: #FFFFFF;
-  --deep: #0E3A31; --deep-rgb: 14, 58, 49;
-  --secondary: #23876A; --secondary-text: #1E7A5F;
-  --accent: #F26A2E; --accent-text: #D9541A;
-  --soft: #BEE5D5; --tint: #EEF7F3; --on-dark: #DDF0E8;
-  --text: #17302A; --muted: #43605A; --line: #D2E3DC; --field-line: #A9C2B9; --footer-line: #285A4C;
-}
-[data-theme="harbor"] {
-  --primary: #16315A; --primary-hover: #21437A; --heading: #16315A;
-  --button: #16315A; --button-hover: #21437A; --button-text: #FFFFFF;
-  --deep: #0F2340; --deep-rgb: 15, 35, 64;
-  --secondary: #3C6DB4; --secondary-text: #2F5FA6;
-  --accent: #F2A93B; --accent-text: #C27C12;
-  --soft: #C4D4EC; --tint: #F0F4FA; --on-dark: #DCE6F4;
-  --text: #17202E; --muted: #4A5568; --line: #D6DEEA; --field-line: #AAB8CC; --footer-line: #2A4167;
-}
-[data-theme="cobalt"] {
-  --primary: #1C4ED8; --primary-hover: #1A41B5; --heading: #0C1B3F;
-  --button: #1C4ED8; --button-hover: #1A41B5; --button-text: #FFFFFF;
-  --deep: #0C1B3F; --deep-rgb: 12, 27, 63;
-  --secondary: #4F7DF0; --secondary-text: #2A5BD7;
-  --accent: #FF6B4A; --accent-text: #E5512F;
-  --soft: #C8D5F7; --tint: #F1F5FE; --on-dark: #DCE4FA;
-  --text: #141B2E; --muted: #4B5470; --line: #D8DFF0; --field-line: #A8B5D6; --footer-line: #263A6E;
-}
-[data-theme="plum"] {
-  --primary: #45215A; --primary-hover: #5A2D74; --heading: #45215A;
-  --button: #45215A; --button-hover: #5A2D74; --button-text: #FFFFFF;
-  --deep: #2A1636; --deep-rgb: 42, 22, 54;
-  --secondary: #8E5BB0; --secondary-text: #7A4A9C;
-  --accent: #D8A23C; --accent-text: #A87716;
-  --soft: #DDCCEA; --tint: #F6F1FA; --on-dark: #EADFF2;
-  --text: #22182A; --muted: #5A4C66; --line: #E3D9EA; --field-line: #BFAFCC; --footer-line: #4A2E5E;
-}
-[data-theme="gold"] {
-  --primary: #3A3324; --primary-hover: #4E4532; --heading: #26221A;
-  --button: #E2A912; --button-hover: #CC9608; --button-text: #1F1B12;
-  --deep: #26221A; --deep-rgb: 38, 34, 26;
-  --secondary: #B98A10; --secondary-text: #8A6508;
-  --accent: #E2A912; --accent-text: #A57A08;
-  --soft: #F0DFA8; --tint: #F8F5EC; --on-dark: #EDE6D3;
-  --text: #22201B; --muted: #57524A; --line: #E4DED0; --field-line: #BDB4A0; --footer-line: #3E382C;
-}
-[data-theme="burgundy"] {
-  --primary: #6B1E32; --primary-hover: #82263E; --heading: #6B1E32;
-  --button: #6B1E32; --button-hover: #82263E; --button-text: #FFFFFF;
-  --deep: #3A0F1B; --deep-rgb: 58, 15, 27;
-  --secondary: #A34A5E; --secondary-text: #8E3A4E;
-  --accent: #D9895B; --accent-text: #B5653A;
-  --soft: #EBC9D2; --tint: #FAF2F4; --on-dark: #F2DDE2;
-  --text: #2A1A1E; --muted: #5E4A50; --line: #EADADF; --field-line: #C7AEB5; --footer-line: #5A2234;
-}
-[data-theme="turquoise"] {
-  --primary: #0B7480; --primary-hover: #0A5F69; --heading: #0A4A55;
-  --button: #0B7480; --button-hover: #0A5F69; --button-text: #FFFFFF;
-  --deep: #0A4A55; --deep-rgb: 10, 74, 85;
-  --secondary: #0F948F; --secondary-text: #0A7A80;
-  --accent: #FF7A66; --accent-text: #DB4F3B;
-  --soft: #B9EAE6; --tint: #EEF8F8; --on-dark: #D9F1EF;
-  --text: #142B2D; --muted: #44605F; --line: #D3E4E3; --field-line: #A5C4C2; --footer-line: #1F6470;
-}
-/* On dark bands the yellow option uses yellow buttons instead of pale ones. */
-[data-theme="gold"] .btn--light { background: var(--button); border-color: var(--button); color: var(--button-text); }
-[data-theme="gold"] .btn--light:hover { background: var(--button-hover); border-color: var(--button-hover); }
-
-/* Preview switcher, shown only while a colour option is being previewed */
-.has-theme-bar body { padding-bottom: 84px; }
-.theme-bar { position: fixed; z-index: 90; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; padding: 7px; background: var(--white); color: var(--text); border-radius: 999px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22); font-family: var(--font-head); max-width: calc(100vw - 20px); }
-.theme-bar-label { padding: 0 6px 0 10px; font-weight: 700; font-size: 0.92rem; color: var(--muted); white-space: nowrap; }
-.theme-bar select { font: inherit; font-weight: 700; font-size: 0.95rem; color: var(--primary); background: var(--tint); border: 0; border-radius: 999px; padding: 0 10px 0 14px; min-height: 42px; min-width: 0; max-width: 48vw; }
-.theme-bar button, .theme-bar a { flex: none; width: 42px; height: 42px; border-radius: 50%; border: 0; background: var(--tint); color: var(--primary); display: grid; place-items: center; cursor: pointer; text-decoration: none; padding: 0; }
-.theme-bar button:hover, .theme-bar a:hover { background: var(--primary); color: var(--white); }
-.theme-bar svg { width: 18px; height: 18px; }
-@media (max-width: 560px) {
-  .theme-bar { left: 8px; right: 8px; transform: none; max-width: none; gap: 5px; padding: 6px; }
-  .theme-bar-label { display: none; }
-  .theme-bar select { flex: 1; max-width: none; font-size: 0.9rem; padding: 0 6px 0 12px; }
-  .theme-bar button, .theme-bar a { width: 40px; height: 40px; }
-}
-
-/* Colour options page */
-.palette-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-@media (max-width: 380px) { .palette-grid { grid-template-columns: 1fr; } }
-.palette { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--white); color: var(--text); }
-.palette-demo { background: var(--deep); padding: 22px; display: grid; gap: 14px; justify-items: start; }
-.palette-demo .logo { color: var(--white); --mark-a: var(--tint); --mark-b: var(--soft); --mark-ring: var(--deep); }
-.palette-demo .logo svg { width: 30px; height: 30px; }
-.palette-demo .wordmark { font-size: 0.9rem; }
-.palette-head { font-family: var(--font-head); font-weight: 800; font-size: 1.55rem; line-height: 1.1; color: var(--white); }
-.palette-demo .btn, .palette-body .btn { min-height: 42px; padding: 0 18px; font-size: 0.95rem; }
-.palette-body { padding: 22px; display: grid; gap: 14px; flex: 1; align-content: start; }
-.palette-body h2 { font-size: 1.35rem; }
-.palette-body > p { color: var(--muted); }
-.swatches { display: flex; gap: 6px; }
-.swatches span { flex: 1; height: 34px; border-radius: 5px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08); }
-.sw-deep { background: var(--deep); }
-.sw-primary { background: var(--primary); }
-.sw-secondary { background: var(--secondary); }
-.sw-accent { background: var(--accent); }
-.sw-tint { background: var(--tint); }
-.demo-card { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; padding: 16px; border: 1px solid var(--line); border-top: 4px solid var(--secondary); border-radius: var(--radius); }
-.demo-card .step-num { grid-row: span 2; font-size: 2rem; }
-.demo-card h3 { font-size: 1.05rem; }
-.demo-card p { color: var(--muted); font-size: 0.95rem; }
-.palette-body .btn { margin-top: auto; }

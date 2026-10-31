@@ -12,7 +12,7 @@ python3 _src/build.py
 
 | To change | Edit |
 |---|---|
-| Header, footer, navigation, phone, address | `_src/build.py` (top of the file) |
+| Header, footer, navigation, phone | `_src/build.py` (top of the file) |
 | Home, Services, About, Contact, Privacy, Terms, 404 | `_src/pages/*.html` |
 | The seven service pages, the three client pages, the FAQ page, careers roles | `_src/content.py` |
 | Resource articles | `_src/resources/*.html` (one file per article; the comment block at the top holds its title, summary and category) |
@@ -26,12 +26,6 @@ python3 -m http.server 4192
 ```
 
 Then open http://localhost:4192.
-
-## Color options
-
-The owners are comparing palettes. `/colors/` (not linked from the site, hidden from search engines) shows each option, and any page opened with `?theme=<name>` shows the whole site in that palette with a switcher at the bottom. Options: `current`, `signal`, `harbor`, `cobalt`, `plum`, `fleet`. Palettes live at the end of `assets/css/site.css`; the list also appears in `THEMES` in `_src/build.py` and in `assets/js/site.js`.
-
-Once a palette is chosen, copy its values into the `:root` block at the top of `site.css`, then remove the colour options section, the `/colors/` page and the switcher.
 
 ## Things to change before launch
 
@@ -72,5 +66,5 @@ Stock photos from Unsplash, free for commercial use under the Unsplash License:
 
 ## Brand
 
-- Colors: pine `#10362F`, sea sage `#5B8F86`, brass `#B39463`, mist `#B7CFC9`, porcelain `#F1F4F3`
+- Colors (blue and coral): ink navy `#0C1B3F`, cobalt `#1C4ED8`, light cobalt `#4F7DF0`, coral `#FF6B4A`, ice `#F1F5FE`. All colour values live in the `:root` block at the top of `assets/css/site.css`.
 - Type: Public Sans for headings and the wordmark, Atkinson Hyperlegible Next for body text

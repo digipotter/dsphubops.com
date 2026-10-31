@@ -397,7 +397,7 @@ FAQ = [
     ("Data and security", [
         ("What access do you need?", "Only the access each service needs. We use our own named logins rather than shared passwords wherever your systems allow it."),
         ("How do you protect our data?", "Access is limited to the people working on your account. We use multi-factor authentication where systems support it, and we remove access when it is no longer needed."),
-        ("Where is your team?", "Our team is in the United States, and our office is in Bakersfield, California."),
+        ("Where is your team?", "Our team is in the United States, and we work with delivery businesses across the country."),
     ]),
 ]
 

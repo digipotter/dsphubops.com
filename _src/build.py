@@ -26,7 +26,6 @@ DOMAIN = "https://dsphubops.com/"
 BASE_404 = "/dsphubops.com/"
 PHONE = "1-866-744-6870"
 PHONE_TEL = "+18667446870"
-ADDRESS = ["12108 Parker Hill Dr", "Bakersfield, CA 93311"]
 UPDATED = "October 31, 2026"
 FONTS = ("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700"
          "&family=Public+Sans:wght@600;700;800&display=swap")
@@ -47,21 +46,6 @@ MARK = ('<svg viewBox="0 0 64 64" aria-hidden="true"><g class="mk-line" stroke-w
         '<g class="mk-b"><polygon points="32,4 36,28 32,32"/><polygon points="60,32 36,36 32,32"/>'
         '<polygon points="32,60 28,36 32,32"/><polygon points="4,32 28,28 32,32"/></g>'
         '<circle class="mk-hub" cx="32" cy="32" r="5" stroke-width="2"/></svg>')
-# Colour options the owners are comparing. Visitors only see one when a link
-# carries ?theme=<slug>; the slugs, with one-word names, also appear in site.js.
-THEMES = [
-    ("signal", "Green and orange", "Keeps a green, brightens it, and adds high-visibility orange."),
-    ("gold", "Dark yellow and charcoal", "Bold dark yellow with warm charcoal. Strong and easy to spot."),
-    ("burgundy", "Burgundy and copper", "Deep burgundy with copper highlights. Established and premium."),
-    ("turquoise", "Turquoise and coral", "Fresh turquoise and deep teal with coral highlights."),
-    ("harbor", "Navy and amber", "Classic logistics navy with warm amber highlights."),
-    ("cobalt", "Blue and coral", "A brighter, more modern blue with coral highlights."),
-    ("plum", "Plum and gold", "A deep plum that stands apart from blue and green competitors."),
-]
-# Runs before the page paints so a previewed palette never flashes green first.
-THEME_BOOT = ('<script>try{var t=new URLSearchParams(location.search).get("theme");'
-              'if(t===null)t=sessionStorage.getItem("dsp-theme");else sessionStorage.setItem("dsp-theme",t);'
-              'if(t&&/^[a-z]+$/.test(t))document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>')
 WORDMARK = ('<span class="wordmark"><span class="w">DSP</span><span class="dot"></span>'
             '<span class="w">HUB</span><span class="dot"></span><span>OPS</span></span>')
 
@@ -107,7 +91,6 @@ def head(page, root):
         '  <link rel="preconnect" href="https://fonts.googleapis.com">',
         '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
         '  <link rel="stylesheet" href="%s">' % FONTS,
-        "  " + THEME_BOOT,
         '  <link rel="stylesheet" href="%sassets/css/site.css">' % root,
         '  <script src="%sassets/js/site.js" defer></script>' % root,
     ]
@@ -121,7 +104,7 @@ def head(page, root):
 def topbar(root):
     return """  <div class="topbar">
     <div class="container">
-      <div class="topbar-info"><a href="tel:%s">%s</a><span>Bakersfield, California</span></div>
+      <div class="topbar-info"><a href="tel:%s">%s</a><span>Logistics operations for last-mile delivery</span></div>
       <a class="topbar-cta" href="%scontact/">Request pricing</a>
     </div>
   </div>""" % (PHONE_TEL, PHONE, root)
@@ -167,10 +150,9 @@ def footer(root):
             %(mark)s
             %(wordmark)s
           </a>
-          <p class="footer-tagline">Logistics operations for last-mile delivery. Based in Bakersfield, California.</p>
+          <p class="footer-tagline">Logistics operations for last-mile delivery, run by a team in the United States.</p>
           <ul class="footer-contact">
             <li><a href="tel:%(tel)s">%(phone)s</a></li>
-            <li>%(addr0)s<br>%(addr1)s</li>
             <li><a href="%(root)scontact/">Request pricing</a></li>
           </ul>
         </div>
@@ -205,7 +187,7 @@ def footer(root):
     </div>
   </footer>""" % {
         "home": root or "./", "root": root, "tel": PHONE_TEL, "phone": PHONE,
-        "addr0": ADDRESS[0], "addr1": ADDRESS[1], "services": services, "segments": segments,
+        "services": services, "segments": segments,
         "mark": MARK, "wordmark": WORDMARK,
     }
 
@@ -251,7 +233,7 @@ def crumbs(items):
 
 def cta_band(title="Tell us about your operation",
              text="Send a few details and we’ll reply with pricing for the services you need."):
-    return """    <section class="section section--pine">
+    return """    <section class="section section--dark">
       <div class="container cta">
         <div>
           <h2>%s</h2>
@@ -624,7 +606,6 @@ def careers_page():
             <h2>Good to know</h2>
             <dl>
               <dt>Team</dt><dd>United States</dd>
-              <dt>Office</dt><dd>Bakersfield, California</dd>
               <dt>Questions</dt><dd><a href="tel:%(tel)s">%(phone)s</a></dd>
             </dl>
           </div>
@@ -753,44 +734,6 @@ def resources_hub(articles):
             "nav": "resources", "main": main}
 
 
-def colors_page():
-    cards = []
-    for slug, name, note in THEMES:
-        cards.append("""          <article class="palette" data-theme="%(slug)s">
-            <div class="palette-demo">
-              <span class="logo">%(mark)s %(wordmark)s</span>
-              <p class="hero-label">Last-mile logistics operations</p>
-              <p class="palette-head">Every route. Every driver. Every dollar.</p>
-              <span class="btn btn--light">Get pricing</span>
-            </div>
-            <div class="palette-body">
-              <h2>%(name)s</h2>
-              <p>%(note)s</p>
-              <div class="swatches" aria-hidden="true"><span class="sw-deep"></span><span class="sw-primary"></span><span class="sw-secondary"></span><span class="sw-accent"></span><span class="sw-tint"></span></div>
-              <div class="demo-card"><span class="step-num">1</span><h3>Dispatch and routes</h3><p>Eyes on every route until the last van is home.</p></div>
-              <a class="btn btn--primary" href="{{root}}?theme=%(slug)s">See the site in these colors</a>
-            </div>
-          </article>""" % {"slug": slug, "name": esc(name), "note": esc(note), "mark": MARK, "wordmark": WORDMARK})
-    main = """    <section class="page-head">
-      <div class="container">
-        <h1>Color options</h1>
-        <p class="lead">The same website and logo in seven color palettes. Tap one to browse the whole site in it, then use the bar at the bottom of the screen to switch between options.</p>
-      </div>
-    </section>
-
-    <section class="section section--flush">
-      <div class="container">
-        <div class="palette-grid">
-%s
-        </div>
-      </div>
-    </section>
-""" % "\n".join(cards)
-    return {"path": "colors/", "title": "Color options | DSP Hub Ops",
-            "description": "Color palette options for the DSP Hub Ops website.",
-            "robots": "noindex", "nav": "", "main": main}
-
-
 # Build -------------------------------------------------------------------
 
 def main():
@@ -798,8 +741,7 @@ def main():
     articles = load_articles()
     org_ld = {"@context": "https://schema.org", "@type": "Organization", "name": "DSP Hub Ops LLC", "url": DOMAIN,
               "logo": DOMAIN + "assets/img/apple-touch-icon.png", "telephone": "+1-" + PHONE[2:],
-              "address": {"@type": "PostalAddress", "streetAddress": ADDRESS[0], "addressLocality": "Bakersfield",
-                          "addressRegion": "CA", "postalCode": "93311", "addressCountry": "US"}}
+              "areaServed": "US"}
     folder = os.path.join(HERE, "pages")
     for name in sorted(os.listdir(folder)):
         if not name.endswith(".html"):
@@ -819,7 +761,6 @@ def main():
     pages.append(careers_page())
     pages.append(resources_hub(articles))
     pages += [article_page(a, articles) for a in articles]
-    pages.append(colors_page())
 
     for page in pages:
         render(page)
