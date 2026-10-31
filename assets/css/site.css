@@ -176,7 +176,7 @@ p { margin: 0; }
 .hero-slider { position: relative; overflow: hidden; background: var(--deep); color: var(--white); min-height: clamp(580px, 82vh, 720px); }
 .hslide { position: absolute; inset: 0; display: flex; align-items: center; opacity: 0; visibility: hidden; transition: opacity 1.1s ease, visibility 0s linear 1.1s; }
 .hslide.is-on { opacity: 1; visibility: visible; transition: opacity 1.1s ease; z-index: 1; }
-.hslide > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); }
+.hslide > img, .hslide > picture > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); }
 .hslide::after {
   content: "";
   position: absolute;
@@ -218,7 +218,7 @@ p { margin: 0; }
   from { transform: translateY(105%); }
   to { transform: translateY(0); }
 }
-.hslide.is-on > img { animation: hero-drift 9s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+.hslide.is-on > img, .hslide.is-on > picture > img { animation: hero-drift 9s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
 .hslide.is-on .hero-label { animation: rise-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s both; }
 .hslide.is-on .display .ln > span { animation: line-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
 .hslide.is-on .display .ln:nth-child(1) > span { animation-delay: 0.3s; }
@@ -234,15 +234,15 @@ p { margin: 0; }
 
 @media (prefers-reduced-motion: reduce) {
   .hslide, .hslide.is-on { transition: none; }
-  .hslide.is-on > img, .hslide.is-on .hero-label, .hslide.is-on .display .ln > span, .hslide.is-on .lead, .hslide.is-on .btn-row, .rise-late { animation: none; }
-  .hslide > img { transform: none; }
+  .hslide.is-on > img, .hslide.is-on > picture > img, .hslide.is-on .hero-label, .hslide.is-on .display .ln > span, .hslide.is-on .lead, .hslide.is-on .btn-row, .rise-late { animation: none; }
+  .hslide > img, .hslide > picture > img { transform: none; }
   .js .reveal { opacity: 1; transform: none; transition: none; }
 }
 
 @media (max-width: 720px) {
   .hslide::after { background: linear-gradient(180deg, rgba(var(--deep-rgb), 0.22) 0%, rgba(var(--deep-rgb), 0.42) 45%, rgba(var(--deep-rgb), 0.6) 100%); }
   /* On phones the text starts near the top, so every slide lines up and the photo shows below it. */
-  .hero-slider { min-height: 560px; }
+  .hero-slider { min-height: 620px; }
   .hslide { align-items: flex-start; }
   .hslide .container { padding-top: 48px; padding-bottom: 120px; }
   .hero-controls { bottom: 64px; }
@@ -471,6 +471,10 @@ fieldset.field { border: 0; padding: 0; margin: 0; }
 
 /* Hero photo focus */
 .obj-right { object-position: 70% 50%; }
+/* The branded van sits right of the text on desktop. Phones get a tighter crop
+   (see the <picture> in the first slide) centred on the decal, below the buttons. */
+.obj-van { object-position: 50% 100%; }
+@media (max-width: 720px) { .obj-van { object-position: 20% 100%; } }
 
 /* Breadcrumbs */
 .crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 0.95rem; color: var(--muted); }

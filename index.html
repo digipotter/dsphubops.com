@@ -54,7 +54,10 @@
   <main id="main">
     <section class="hero-slider" aria-roledescription="carousel" aria-label="Highlights">
       <div class="hslide is-on" aria-roledescription="slide" aria-label="1 of 5">
-        <img class="obj-right" src="assets/img/hero-depot-1200.jpg" srcset="assets/img/hero-depot-1200.jpg 1200w, assets/img/hero-depot-2400.jpg 2400w" sizes="100vw" width="1200" height="799" alt="Aerial view of a logistics hub with trailers parked at the loading docks">
+        <picture>
+          <source media="(max-width: 720px)" srcset="assets/img/hero-van-phone-1000.jpg 1000w, assets/img/hero-van-phone-1400.jpg 1400w" sizes="430px">
+          <img class="obj-van" src="assets/img/hero-van-1200.jpg" srcset="assets/img/hero-van-1200.jpg 1200w, assets/img/hero-van-1800.jpg 1800w, assets/img/hero-van-2400.jpg 2400w" sizes="100vw" width="1200" height="800" alt="A white DSP Hub Ops Sprinter van on a winding road with mountains behind it">
+        </picture>
         <div class="container">
           <h1 class="hero-label">Last-mile logistics operations</h1>
           <p class="display"><span class="ln"><span>Every route.</span></span><span class="ln"><span>Every driver.</span></span><span class="ln"><span>Every dollar.</span></span></p>

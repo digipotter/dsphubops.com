@@ -61,6 +61,7 @@ Leave the other GoDaddy records (name servers, `_domainconnect`, `_dmarc`) as th
 
 Stock photos from Unsplash, free for commercial use under the Unsplash License:
 
+- `hero-van-*` (first hero slide): https://unsplash.com/photos/a-white-van-driving-down-a-curvy-road-gssQ3d6_zxk. The DSP Hub Ops decal was added digitally and the licence plate blurred; `hero-van-phone-*` is a tighter crop for phones.
 - `hero-vans-*`: https://unsplash.com/photos/white-vans-parked-in-mossingen-3vlGNkDep4E
 - `ops-aisle-*`: https://unsplash.com/photos/women-walking-through-warehouse-aisle-ZlOlRnWk8zU
 - `office-phone-*`: https://unsplash.com/photos/woman-talking-on-phone-while-working-on-laptop-in-office-ttGPlhrPiZs
