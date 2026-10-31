@@ -24,8 +24,10 @@ DOMAIN = "https://dsphubops.com/"
 # GitHub serves 404.html at every depth, so it needs absolute links. Set this
 # to "/" once dsphubops.com points at GitHub Pages.
 BASE_404 = "/dsphubops.com/"
-# Both forms email submissions to this inbox through FormSubmit (see README).
-FORM_ACTION = "https://formsubmit.co/dsphubops@dsphubsolutions.net"
+# Both forms are Formspree forms defined in _src/formspree.json, which also sets
+# the inbox they email (see README). The project ID is in the Formspree project settings.
+FORMSPREE_PROJECT = "3124978871309434377"
+FORM_ACTIONS = {key: "https://formspree.io/p/%s/f/%s" % (FORMSPREE_PROJECT, key) for key in ("pricing", "careers")}
 PHONE = "1-866-744-6870"
 PHONE_TEL = "+18667446870"
 UPDATED = "October 31, 2026"
@@ -196,7 +198,7 @@ def footer(root):
 
 def render(page):
     root = root_for(page["path"])
-    main = page["main"].replace("{{root}}", root).replace("{{form_action}}", FORM_ACTION)
+    main = page["main"].replace("{{root}}", root).replace("{{pricing_action}}", FORM_ACTIONS["pricing"])
     main_class = ' class="%s"' % page["main_class"] if page.get("main_class") else ""
     doc = "\n".join([
         head(page, root),
@@ -576,11 +578,9 @@ def careers_page():
             <h2>Apply</h2>
             <p class="lead">Tell us a little about yourself. We’ll reply by email and ask for your resume if there’s a fit.</p>
           </div>
-          <form id="careers-form" class="form" action="%(form_action)s" method="POST" data-formsubmit data-status="careers-status" data-done-title="Thanks for applying." data-done-text="We read every application and will reply by email if there’s a fit.">
+          <form id="careers-form" class="form" action="%(form_action)s" method="POST" data-ajax-form data-status="careers-status" data-done-title="Thanks for applying." data-done-text="We read every application and will reply by email if there’s a fit.">
             <input type="hidden" name="_subject" value="Careers application from dsphubops.com">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_next" value="https://dsphubops.com/contact/thanks/">
-            <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <input type="text" name="_gotcha" class="honey" tabindex="-1" autocomplete="off" aria-hidden="true">
             <div class="form-row">
               <div class="field"><label for="c-name">Your name</label><input id="c-name" name="name" type="text" autocomplete="name" required></div>
               <div class="field"><label for="c-email">Email</label><input id="c-email" name="email" type="email" autocomplete="email" required></div>
@@ -614,7 +614,7 @@ def careers_page():
         </aside>
       </div>
     </section>
-""" % {"roles": roles, "options": options, "tel": PHONE_TEL, "phone": PHONE, "form_action": FORM_ACTION}
+""" % {"roles": roles, "options": options, "tel": PHONE_TEL, "phone": PHONE, "form_action": FORM_ACTIONS["careers"]}
     return {"path": "careers/", "title": "Careers | DSP Hub Ops",
             "description": "Join the DSP Hub Ops team. We hire operations, recruiting, payroll, dispatch and fleet compliance specialists in the United States.",
             "nav": "about", "main": main}
@@ -739,6 +739,8 @@ def resources_hub(articles):
 # Build -------------------------------------------------------------------
 
 def main():
+    if not FORMSPREE_PROJECT:
+        raise SystemExit("Set FORMSPREE_PROJECT at the top of _src/build.py first.")
     pages = []
     articles = load_articles()
     org_ld = {"@context": "https://schema.org", "@type": "Organization", "name": "DSP Hub Ops LLC", "url": DOMAIN,

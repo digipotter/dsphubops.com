@@ -1,0 +1,12 @@
+{
+  "forms": {
+    "pricing": {
+      "name": "Pricing request",
+      "actions": [{ "type": "email", "to": "dsphubops@dsphubsolutions.net" }]
+    },
+    "careers": {
+      "name": "Careers application",
+      "actions": [{ "type": "email", "to": "dsphubops@dsphubsolutions.net" }]
+    }
+  }
+}

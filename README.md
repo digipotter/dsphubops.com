@@ -32,16 +32,19 @@ Then open http://localhost:4192.
 | What | Where |
 |---|---|
 | Phone number | `1-866-744-6870` is temporary until the main number is approved. Change `PHONE` and `PHONE_TEL` in `_src/build.py`, plus the `tel:` links in `_src/pages/` (contact, privacy, terms), then rebuild. |
-| Form inbox | Both forms send to dsphubops@dsphubsolutions.net. To change it, edit `FORM_ACTION` at the top of `_src/build.py` and rebuild. |
+| Form inbox | Both forms send to dsphubops@dsphubsolutions.net. To change it, edit the `to` addresses in `_src/formspree.json` and deploy (see Forms below). |
 | Legal pages | `_src/pages/privacy.html` and `terms.html` are general templates. Have them reviewed before launch. |
 
-### Contact form
+### Forms
 
-The form posts to [FormSubmit](https://formsubmit.co), which emails each submission.
+Both forms (pricing on the Contact page, and Careers) post to [Formspree](https://formspree.io). They are defined in `_src/formspree.json`, which also sets the inbox they email, and deployed with the Formspree CLI using the project's deploy key:
 
-1. The first submission to a new address sends an activation email to that inbox. Click the link once.
-2. After activation, FormSubmit offers a random alias for the address. Swap it into the form `action` so the real email isn't visible in the page source.
-3. To change inboxes later, edit the address in the form `action` and activate again.
+```bash
+cd _src
+FORMSPREE_DEPLOY_KEY="$(cat ~/.dsphubops-formspree-key)" npx @formspree/cli@0.9.6 deploy
+```
+
+Keep the deploy key out of the repository. The site finds each form at `https://formspree.io/p/<project id>/f/<form key>`, built from `FORMSPREE_PROJECT` at the top of `_src/build.py`. A new recipient address gets one verification email from Formspree before submissions reach it.
 
 ## Deploy on GitHub Pages
 

@@ -75,10 +75,10 @@ document.documentElement.classList.add('js');
     revealed.forEach(function (el) { el.classList.add('visible'); });
   }
 
-  // Forms post to FormSubmit. Without JavaScript they fall back to a normal
-  // POST and FormSubmit redirects to /contact/thanks/. With JavaScript we use
-  // FormSubmit's AJAX endpoint and show the result in place.
-  document.querySelectorAll('form[data-formsubmit]').forEach(function (form) {
+  // Forms post to Formspree. Without JavaScript they fall back to a normal POST
+  // and Formspree shows its own confirmation page. With JavaScript we ask for
+  // JSON and show the result in place.
+  document.querySelectorAll('form[data-ajax-form]').forEach(function (form) {
     var status = document.getElementById(form.dataset.status);
     var button = form.querySelector('button[type="submit"]');
     var label = button.textContent;
@@ -97,18 +97,20 @@ document.documentElement.classList.add('js');
       data.set('services', services.length ? services.join(', ') : 'Not specified');
     }
 
-    var endpoint = form.action.replace('formsubmit.co/', 'formsubmit.co/ajax/');
-    fetch(endpoint, {
+    fetch(form.action, {
       method: 'POST',
       headers: { Accept: 'application/json' },
       body: data
     })
       .then(function (response) {
-        if (!response.ok) throw new Error('HTTP ' + response.status);
-        return response.json();
+        return response.json().catch(function () { return {}; }).then(function (body) {
+          if (!response.ok) {
+            var reasons = (body.errors || []).map(function (e) { return e.message; }).join(' ');
+            throw new Error(reasons || 'HTTP ' + response.status);
+          }
+        });
       })
-      .then(function (body) {
-        if (body.success === false || body.success === 'false') throw new Error(body.message || 'Rejected');
+      .then(function () {
         form.hidden = true;
         status.className = 'form-status form-status--ok';
         status.innerHTML = '<h2></h2><p></p>';

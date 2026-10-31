@@ -15,11 +15,9 @@ nav: contact
     <section class="section">
       <div class="container contact-grid">
         <div>
-          <form id="pricing-form" class="form" action="{{form_action}}" method="POST" data-formsubmit data-status="form-status" data-done-title="Thanks, we have your request." data-done-text="We will reply by email with pricing for the services you picked.">
+          <form id="pricing-form" class="form" action="{{pricing_action}}" method="POST" data-ajax-form data-status="form-status" data-done-title="Thanks, we have your request." data-done-text="We will reply by email with pricing for the services you picked.">
             <input type="hidden" name="_subject" value="New pricing request from dsphubops.com">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_next" value="https://dsphubops.com/contact/thanks/">
-            <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <input type="text" name="_gotcha" class="honey" tabindex="-1" autocomplete="off" aria-hidden="true">
 
             <div class="form-row">
               <div class="field">
