@@ -55,6 +55,11 @@ WORDMARK = ('<span class="wordmark"><span class="w">DSP</span><span class="dot">
 SERVICE_BY_SLUG = {s["slug"]: s for s in content.SERVICES}
 
 
+def sentence_case(name):
+    """Lower-case the first word of a name for mid-sentence use, unless it is an acronym such as HR."""
+    return name if name.split()[0].isupper() else name[0].lower() + name[1:]
+
+
 def esc(text):
     return html.escape(text, quote=True)
 
@@ -352,7 +357,7 @@ def service_page(s):
 %(cta)s
 """ % {
         "crumbs": crumbs([("services/", "Services"), ("", s["name"])]),
-        "name": esc(s["name"]), "name_lower": esc(s["name"].lower()), "lead": esc(s["lead"]),
+        "name": esc(s["name"]), "name_lower": esc(sentence_case(s["name"])), "lead": esc(s["lead"]),
         "tel": PHONE_TEL, "phone": PHONE,
         "photo": photo(*s["photo"]),
         "problems_title": esc(s["problems_title"]), "problems": problems, "handles": handles,
@@ -384,7 +389,7 @@ def segments_hub():
     main = """    <section class="page-head">
       <div class="container">
         <h1>Who we serve</h1>
-        <p class="lead">Last-mile delivery businesses of every size, from a single station to fleets spread across several states.</p>
+        <p class="lead">For last-mile delivery businesses of any size, from a single station to a multi-state fleet.</p>
       </div>
     </section>
 
@@ -423,10 +428,11 @@ def segment_page(g):
     services = "\n".join('          <article class="card"><h3>%s</h3><p>%s</p><a href="{{root}}services/%s/">Learn more</a></article>'
                          % (SERVICE_BY_SLUG[s]["name"], esc(SERVICE_BY_SLUG[s]["short"]), s) for s in g["services"])
     if len(g["services"]) % 3 == 2:
-        others = [SERVICE_BY_SLUG[s]["name"].lower() for s in SERVICE_BY_SLUG if s not in g["services"]]
+        others = [sentence_case(SERVICE_BY_SLUG[s]["name"]) for s in SERVICE_BY_SLUG if s not in g["services"]]
         services += ('\n          <article class="card card--more"><h3>Something else?</h3><p>We also handle %s. '
                      'Every service can be added on its own.</p><a href="{{root}}services/">All services</a></article>'
-                     % " and ".join(others))
+                     % (", ".join(others[:-1]) + (", and " if len(others) > 2 else " and ") + others[-1]
+                        if len(others) > 1 else others[0]))
     steps = "\n".join('          <li class="step"><span class="step-num">%d</span><h3>%s</h3><p>%s</p></li>'
                       % (i + 1, esc(t), esc(d)) for i, (t, d) in enumerate(content.ONBOARDING_STEPS))
     note = '\n        <p class="form-note">%s</p>' % esc(g["note"]) if g["note"] else ""
@@ -451,7 +457,7 @@ def segment_page(g):
     <section class="section section--tint">
       <div class="container">
         <div class="section-head reveal">
-          <h2>What we hear from %(audience)s</h2>
+          <h2>What %(audience)s deal with</h2>
         </div>
         <div class="values reveal">
 %(challenges)s
@@ -735,6 +741,43 @@ def resources_hub(articles):
             "nav": "resources", "main": main}
 
 
+# Service lists used on hand-written pages (home, services hub, contact form).
+# They come from content.SERVICES so names and order stay in one place.
+
+def service_cards():
+    return "\n".join('          <article class="card"><span class="card-num">%02d</span><h3>%s</h3><p>%s</p>'
+                     '<a href="{{root}}services/%s/">Learn more</a></article>'
+                     % (i + 1, esc(s["name"]), esc(s["short"]), s["slug"]) for i, s in enumerate(content.SERVICES))
+
+
+def services_hub_list():
+    blocks = []
+    for i, s in enumerate(content.SERVICES):
+        handles = "\n".join("              <li>%s</li>" % esc(h) for h in s["handles"])
+        blocks.append("""        <article class="service" id="%s">
+          <div class="service-intro">
+            <span class="card-num">%02d</span>
+            <h2>%s</h2>
+            <p>%s</p>
+            <a class="more-link" href="{{root}}services/%s/">Full details</a>
+          </div>
+          <div class="service-body">
+            <h3>What we handle</h3>
+            <ul class="checklist">
+%s
+            </ul>
+            <p class="keep"><strong>Stays with you:</strong> %s</p>
+          </div>
+        </article>""" % (s["anchor"], i + 1, esc(s["name"]), esc(s["intro"]), s["slug"], handles, esc(s["keep"])))
+    return "\n\n".join(blocks)
+
+
+def service_checkboxes():
+    names = [s["name"] for s in content.SERVICES] + ["Not sure yet"]
+    return "\n".join('                <label><input type="checkbox" name="services" value="%s"> %s</label>' % (esc(n), esc(n))
+                     for n in names)
+
+
 # Build -------------------------------------------------------------------
 
 def main():
@@ -756,6 +799,9 @@ def main():
             page["jsonld"] = [org_ld]
             latest = "\n".join(article_card(a) for a in articles[:3])
             page["main"] = page["main"].replace("<!-- resources:latest -->", latest)
+        page["main"] = (page["main"].replace("<!-- services:hub -->", services_hub_list())
+                        .replace("<!-- services:cards -->", service_cards())
+                        .replace("<!-- services:checkboxes -->", service_checkboxes()))
         pages.append(page)
     pages += [service_page(s) for s in content.SERVICES]
     pages.append(segments_hub())
