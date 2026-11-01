@@ -244,7 +244,9 @@ p { margin: 0; }
   /* On phones the text starts near the top, so every slide lines up and the photo shows below it. */
   .hero-slider { min-height: 620px; }
   .hslide { align-items: flex-start; }
-  .hslide .container { padding-top: 48px; padding-bottom: 120px; }
+  .hslide .container { padding-top: 48px; padding-bottom: 104px; height: 100%; align-content: start; grid-template-rows: auto auto auto 1fr; }
+  /* The buttons sit at the bottom of the photo, just above the slider dots. */
+  .hslide .btn-row { align-self: end; }
   .hero-controls { bottom: 64px; }
 }
 
