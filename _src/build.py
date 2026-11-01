@@ -9,6 +9,7 @@ works on dsphubops.com and in a GitHub Pages project folder.
 
 Usage: python3 -I _src/build.py
 """
+import hashlib
 import html
 import json
 import os
@@ -55,6 +56,13 @@ WORDMARK = ('<span class="wordmark"><span class="w">DSP</span><span class="dot">
 SERVICE_BY_SLUG = {s["slug"]: s for s in content.SERVICES}
 
 
+def asset_version(rel):
+    """Short content hash, added to CSS and JS links so browsers fetch a changed file
+    straight away instead of using a cached copy (GitHub Pages caches for 10 minutes)."""
+    with open(os.path.join(SITE, rel), "rb") as fh:
+        return hashlib.sha1(fh.read()).hexdigest()[:8]
+
+
 def sentence_case(name):
     """Lower-case the first word of a name for mid-sentence use, unless it is an acronym such as HR."""
     return name if name.split()[0].isupper() else name[0].lower() + name[1:]
@@ -99,8 +107,8 @@ def head(page, root):
         '  <link rel="preconnect" href="https://fonts.googleapis.com">',
         '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
         '  <link rel="stylesheet" href="%s">' % FONTS,
-        '  <link rel="stylesheet" href="%sassets/css/site.css">' % root,
-        '  <script src="%sassets/js/site.js" defer></script>' % root,
+        '  <link rel="stylesheet" href="%sassets/css/site.css?v=%s">' % (root, asset_version("assets/css/site.css")),
+        '  <script src="%sassets/js/site.js?v=%s" defer></script>' % (root, asset_version("assets/js/site.js")),
     ]
     for data in page.get("jsonld", []):
         lines.append('  <script type="application/ld+json">%s</script>'
