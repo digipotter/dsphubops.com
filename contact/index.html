@@ -17,8 +17,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700&family=Public+Sans:wght@600;700;800&display=swap">
-  <link rel="stylesheet" href="../assets/css/site.css?v=181b026d">
-  <script src="../assets/js/site.js?v=c637f2a4" defer></script>
+  <link rel="stylesheet" href="../assets/css/site.css?v=3a2252eb">
+  <script src="../assets/js/site.js?v=3cfa78af" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -119,8 +119,16 @@
               <textarea id="f-message" name="message"></textarea>
             </div>
 
+            <div class="consent">
+              <label for="f-sms"><input id="f-sms" name="sms_consent" type="checkbox" value="Yes" data-sms-consent data-phone="f-phone"> <span>Yes, I agree to receive text messages from DSP Hub Ops at the mobile number provided about my inquiry, scheduling and the services I requested.</span></label>
+              <p class="consent-fine">Optional. Consent is not a condition of any purchase. Message frequency varies. Message and data rates may apply. Reply STOP to opt out at any time or HELP for help. See our <a href="../privacy-policy/">Privacy Policy</a> and <a href="../sms-terms/">SMS Terms and Conditions</a>.</p>
+              <input type="hidden" name="sms_consent_language" value="Yes, I agree to receive text messages from DSP Hub Ops at the mobile number provided about my inquiry, scheduling and the services I requested. Optional. Consent is not a condition of any purchase. Message frequency varies. Message and data rates may apply. Reply STOP to opt out at any time or HELP for help. See our Privacy Policy and SMS Terms and Conditions.">
+              <input type="hidden" name="sms_consent_page" value="https://dsphubops.com/contact/">
+            </div>
+
+
             <div class="btn-row"><button class="btn btn--primary" type="submit">Send request</button></div>
-            <p class="form-note">We use these details only to reply to your request.</p>
+            <p class="form-note">We use these details to respond to your request and as otherwise described in our <a href="../privacy-policy/">Privacy Policy</a>. We do not sell your information.</p>
           </form>
           <div id="form-status" class="form-status" role="status" tabindex="-1" hidden></div>
         </div>
@@ -130,10 +138,11 @@
             <h2>Contact details</h2>
             <dl>
               <dt>Phone</dt><dd><a href="tel:+18667446870">1-866-744-6870</a></dd>
+              <dt>Email</dt><dd><a href="mailto:dsphubops@dsphubsolutions.net">dsphubops@dsphubsolutions.net</a></dd>
               <dt>Team</dt><dd>Based in the United States</dd>
             </dl>
           </div>
-          <p class="form-note">Prefer a call? Leave your phone number in the form and we’ll ring you.</p>
+          <p class="form-note">Prefer a call? Include your phone number in the form and we will call you.</p>
         </aside>
       </div>
     </section>
@@ -150,6 +159,7 @@
           <p class="footer-tagline">Logistics operations for last-mile delivery, run by a team in the United States.</p>
           <ul class="footer-contact">
             <li><a href="tel:+18667446870">1-866-744-6870</a></li>
+            <li><a href="mailto:dsphubops@dsphubsolutions.net">dsphubops@dsphubsolutions.net</a></li>
             <li><a href="../contact/">Request pricing</a></li>
           </ul>
         </div>
@@ -187,7 +197,7 @@
       </div>
       <div class="footer-legal">
         <span>© 2026 DSP Hub Ops LLC</span>
-        <span class="footer-links"><a href="../privacy/">Privacy policy</a><a href="../terms/">Terms of use</a></span>
+        <span class="footer-links"><a href="../privacy-policy/">Privacy Policy</a><a href="../terms-of-service/">Terms of Service</a><a href="../sms-terms/">SMS Terms</a></span>
         <span>DSP Hub Ops is an independent company and is not affiliated with Amazon.</span>
       </div>
     </div>

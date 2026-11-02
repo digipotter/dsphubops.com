@@ -30,6 +30,7 @@ FORMSPREE_PROJECT = "3124978871309434377"
 FORM_ACTIONS = {key: "https://formspree.io/p/%s/f/%s" % (FORMSPREE_PROJECT, key) for key in ("pricing", "careers")}
 PHONE = "1-866-744-6870"
 PHONE_TEL = "+18667446870"
+EMAIL = "dsphubops@dsphubsolutions.net"
 UPDATED = "October 31, 2026"
 FONTS = ("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700"
          "&family=Public+Sans:wght@600;700;800&display=swap")
@@ -169,6 +170,7 @@ def footer(root):
           <p class="footer-tagline">Logistics operations for last-mile delivery, run by a team in the United States.</p>
           <ul class="footer-contact">
             <li><a href="tel:%(tel)s">%(phone)s</a></li>
+            <li><a href="mailto:%(email)s">%(email)s</a></li>
             <li><a href="%(root)scontact/">Request pricing</a></li>
           </ul>
         </div>
@@ -197,12 +199,12 @@ def footer(root):
       </div>
       <div class="footer-legal">
         <span>© 2026 DSP Hub Ops LLC</span>
-        <span class="footer-links"><a href="%(root)sprivacy/">Privacy policy</a><a href="%(root)sterms/">Terms of use</a></span>
+        <span class="footer-links"><a href="%(root)sprivacy-policy/">Privacy Policy</a><a href="%(root)sterms-of-service/">Terms of Service</a><a href="%(root)ssms-terms/">SMS Terms</a></span>
         <span>DSP Hub Ops is an independent company and is not affiliated with Amazon.</span>
       </div>
     </div>
   </footer>""" % {
-        "home": root or "./", "root": root, "tel": PHONE_TEL, "phone": PHONE,
+        "home": root or "./", "root": root, "tel": PHONE_TEL, "phone": PHONE, "email": EMAIL,
         "services": services, "segments": segments,
         "mark": MARK, "wordmark": WORDMARK,
     }
@@ -611,8 +613,8 @@ def careers_page():
             </div>
             <div class="field"><label for="c-link">LinkedIn or resume link <span class="hint">(optional)</span></label><input id="c-link" name="link" type="url" inputmode="url"></div>
             <div class="field"><label for="c-message">A few lines about your experience</label><textarea id="c-message" name="message" required></textarea></div>
-            <div class="btn-row"><button class="btn btn--primary" type="submit">Send application</button></div>
-            <p class="form-note">We use these details only to review your application. DSP Hub Ops is an equal opportunity employer.</p>
+%(consent)s            <div class="btn-row"><button class="btn btn--primary" type="submit">Send application</button></div>
+            <p class="form-note">We use these details to review your application and as otherwise described in our <a href="{{root}}privacy-policy/">Privacy Policy</a>. DSP Hub Ops is an equal opportunity employer.</p>
           </form>
           <div id="careers-status" class="form-status" role="status" tabindex="-1" hidden></div>
         </div>
@@ -627,7 +629,7 @@ def careers_page():
         </aside>
       </div>
     </section>
-""" % {"roles": roles, "options": options, "tel": PHONE_TEL, "phone": PHONE, "form_action": FORM_ACTIONS["careers"]}
+""" % {"roles": roles, "options": options, "tel": PHONE_TEL, "phone": PHONE, "form_action": FORM_ACTIONS["careers"], "consent": consent_block("c-sms", "c-phone", "careers/", "my application, interview scheduling and onboarding", "Consent is not a condition of employment or of applying.")}
     return {"path": "careers/", "title": "Careers | DSP Hub Ops",
             "description": "Join the DSP Hub Ops team. We hire operations, recruiting, payroll, dispatch and fleet compliance specialists in the United States.",
             "nav": "about", "main": main}
@@ -786,6 +788,59 @@ def service_checkboxes():
                      for n in names)
 
 
+# Old and common addresses for the legal pages forward to the current ones, so
+# links shared earlier or typed from habit (for example /privacy/) still work.
+LEGAL_REDIRECTS = {
+    "privacy/": "privacy-policy/",
+    "terms/": "terms-of-service/",
+    "terms-of-use/": "terms-of-service/",
+    "terms-and-conditions/": "terms-of-service/",
+    "sms-policy/": "sms-terms/",
+}
+
+
+def write_redirect(path, target):
+    rel = "../" * path.count("/") + target
+    doc = """<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting | DSP Hub Ops</title>
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="%(abs)s">
+  <meta http-equiv="refresh" content="0; url=%(rel)s">
+  <script>location.replace(%(js)s + location.hash);</script>
+</head>
+<body>
+  <p>This page has moved to <a href="%(rel)s">%(abs)s</a>.</p>
+</body>
+</html>
+""" % {"abs": DOMAIN + target, "rel": rel, "js": json.dumps(rel)}
+    out = os.path.join(SITE, path, "index.html")
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    with open(out, "w", encoding="utf-8") as fh:
+        fh.write(doc)
+
+
+def consent_block(box_id, phone_id, page, topics, condition):
+    """Text message opt-in for a form. Optional and never pre-checked. The same wording
+    is shown to the visitor and sent with the form, so the consent record matches."""
+    label = ("Yes, I agree to receive text messages from DSP Hub Ops at the mobile number provided about %s." % topics)
+    fine = ("Optional. %s Message frequency varies. Message and data rates may apply. Reply STOP to opt out "
+            "at any time or HELP for help. See our Privacy Policy and SMS Terms and Conditions." % condition)
+    fine_html = esc(fine).replace("Privacy Policy and SMS Terms and Conditions",
+                                  '<a href="{{root}}privacy-policy/">Privacy Policy</a> and '
+                                  '<a href="{{root}}sms-terms/">SMS Terms and Conditions</a>')
+    return """            <div class="consent">
+              <label for="%(id)s"><input id="%(id)s" name="sms_consent" type="checkbox" value="Yes" data-sms-consent data-phone="%(phone)s"> <span>%(label)s</span></label>
+              <p class="consent-fine">%(fine_html)s</p>
+              <input type="hidden" name="sms_consent_language" value="%(lang)s">
+              <input type="hidden" name="sms_consent_page" value="%(url)s">
+            </div>
+""" % {"id": box_id, "phone": phone_id, "label": esc(label), "fine_html": fine_html,
+       "lang": esc(label + " " + fine), "url": DOMAIN + page}
+
+
 # Build -------------------------------------------------------------------
 
 def main():
@@ -809,7 +864,8 @@ def main():
             page["main"] = page["main"].replace("<!-- resources:latest -->", latest)
         page["main"] = (page["main"].replace("<!-- services:hub -->", services_hub_list())
                         .replace("<!-- services:cards -->", service_cards())
-                        .replace("<!-- services:checkboxes -->", service_checkboxes()))
+                        .replace("<!-- services:checkboxes -->", service_checkboxes())
+                        .replace("<!-- consent:contact -->", consent_block("f-sms", "f-phone", "contact/", "my inquiry, scheduling and the services I requested", "Consent is not a condition of any purchase.")))
         pages.append(page)
     pages += [service_page(s) for s in content.SERVICES]
     pages.append(segments_hub())
@@ -821,6 +877,9 @@ def main():
 
     for page in pages:
         render(page)
+
+    for path, target in LEGAL_REDIRECTS.items():
+        write_redirect(path, target)
 
     urls = [DOMAIN + p["path"] for p in pages if not p.get("robots") and p["path"] != "404"]
     with open(os.path.join(SITE, "sitemap.xml"), "w", encoding="utf-8") as fh:
