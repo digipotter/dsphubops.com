@@ -31,7 +31,7 @@ Then open http://localhost:4192.
 
 | What | Where |
 |---|---|
-| Phone number | `1-866-744-6870` is temporary until the main number is approved. Change `PHONE` and `PHONE_TEL` in `_src/build.py`, plus the `tel:` links in `_src/pages/` (contact, privacy, terms), then rebuild. |
+| Phone number | 1-855-DSP-HUB1 (1-855-377-4821). Change `PHONE`, `PHONE_DIGITS` and `PHONE_TEL` in `_src/build.py`, plus the `tel:` links in `_src/pages/` (contact, privacy, terms, sms-terms), then rebuild. |
 | Form inbox | Both forms send to dsphubops@dsphubsolutions.net. To change it, edit the `to` addresses in `_src/formspree.json` and deploy (see Forms below). |
 | Legal pages | `_src/pages/privacy.html` (/privacy-policy/), `terms.html` (/terms-of-service/) and `sms-terms.html` (/sms-terms/). Old and common addresses (/privacy/, /terms/, /terms-of-use/, /terms-and-conditions/, /sms-policy/) forward via `LEGAL_REDIRECTS` in `_src/build.py`. Have them reviewed by counsel. The text message consent box on both forms comes from `consent_block()` in `_src/build.py`, and the 10DLC campaign must describe the same opt-in (the two web forms) and message types. |
 

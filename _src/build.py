@@ -28,8 +28,9 @@ BASE_404 = "/"
 # the inbox they email (see README). The project ID is in the Formspree project settings.
 FORMSPREE_PROJECT = "3124978871309434377"
 FORM_ACTIONS = {key: "https://formspree.io/p/%s/f/%s" % (FORMSPREE_PROJECT, key) for key in ("pricing", "careers")}
-PHONE = "1-866-744-6870"
-PHONE_TEL = "+18667446870"
+PHONE = "1-855-DSP-HUB1"      # vanity form shown on the site
+PHONE_DIGITS = "1-855-377-4821"  # the same number in digits
+PHONE_TEL = "+18553774821"
 EMAIL = "dsphubops@dsphubsolutions.net"
 UPDATED = "October 31, 2026"
 FONTS = ("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700"
@@ -849,7 +850,7 @@ def main():
     pages = []
     articles = load_articles()
     org_ld = {"@context": "https://schema.org", "@type": "Organization", "name": "DSP Hub Ops LLC", "url": DOMAIN,
-              "logo": DOMAIN + "assets/img/apple-touch-icon.png", "telephone": "+1-" + PHONE[2:],
+              "logo": DOMAIN + "assets/img/apple-touch-icon.png", "telephone": "+1-" + PHONE_DIGITS[2:],
               "areaServed": "US"}
     folder = os.path.join(HERE, "pages")
     for name in sorted(os.listdir(folder)):
